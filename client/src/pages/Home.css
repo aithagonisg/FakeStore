@@ -1,0 +1,19 @@
+#wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#content {
+  min-height: 85%;
+}
+
+header {
+  height: 48px;
+}
+
+footer {
+  height: 48px;
+}
