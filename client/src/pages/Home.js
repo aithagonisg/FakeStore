@@ -4,13 +4,19 @@ import Footer from "../components/Footer";
 import RoutesBasic from "./Routes";
 
 export default function Home() {
+  const height = window.screen.height;
+  console.log(height);
   return (
-    <>
-      <Header />
-      <div style={{ height: "544px" }}>
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <div>
+        <Header />
+      </div>
+      <div style={{ height: height - 168 }}>
         <RoutesBasic />
       </div>
-      <Footer />
-    </>
+      <div>
+        <Footer />
+      </div>
+    </div>
   );
 }
