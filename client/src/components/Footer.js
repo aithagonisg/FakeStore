@@ -2,11 +2,12 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <nav className="bg-secondary">
+    <nav style={{ backgroundColor: "#03002f" }}>
       <div
         style={{
           paddingTop: "12px",
           textAlign: "center",
+          color: "white",
           height: "48px",
         }}
       >

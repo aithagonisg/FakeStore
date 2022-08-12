@@ -1,8 +1,10 @@
 import React from "react";
+import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { TextareaAutosize } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -32,25 +34,11 @@ export default function SignUp() {
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
-        <Typography
-          component="h1"
-          variant="h4"
-          align="center"
-          color="textPrimary"
-          gutterBottom
-        >
-          Contact Us
-        </Typography>
-        <Typography
-          variant="h5"
-          align="center"
-          color="textSecondary"
-          style={{ width: "800px" }}
-          paragraph
-        >
-          Do you have any questions? Please do not hesitate to contact us
-          directly. Our team will come back to you within a matter of hours to
-          help you.
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign up
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
@@ -85,11 +73,14 @@ export default function SignUp() {
               />
             </Grid>
             <Grid item xs={12}>
-              <TextareaAutosize
-                aria-label="minimum height"
-                style={{ width: "100%" }}
-                minRows={3}
-                placeholder="Subject"
+              <TextField
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
               />
             </Grid>
           </Grid>
@@ -100,8 +91,13 @@ export default function SignUp() {
             color="primary"
             className={classes.submit}
           >
-            Send
+            Sign Up
           </Button>
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <Link to="/login">Already have an account? Sign in</Link>
+            </Grid>
+          </Grid>
         </form>
       </div>
     </Container>

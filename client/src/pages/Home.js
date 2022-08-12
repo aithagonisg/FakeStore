@@ -7,7 +7,9 @@ export default function Home() {
   return (
     <>
       <Header />
-      <RoutesBasic />
+      <div style={{ height: "544px" }}>
+        <RoutesBasic />
+      </div>
       <Footer />
     </>
   );

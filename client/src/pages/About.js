@@ -1,58 +1,79 @@
 import React from "react";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
 
-export default function About() {
+const useStyles = makeStyles((theme) => ({
+  icon: {
+    marginRight: theme.spacing(2),
+  },
+  cardGrid: {
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
+  },
+  card: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+  },
+  cardMedia: {
+    paddingTop: "56.25%", // 16:9
+  },
+  cardContent: {
+    flexGrow: 1,
+  },
+  footer: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(6),
+  },
+}));
+
+export default function Album() {
+  const classes = useStyles();
+
   return (
-    <div>
-      <div className="jumbotron text-center">
-        <h1>Company</h1>
-        <p>We specialize in blablabla</p>
-        <form className="form-inline" style={{ margin: "5px" }}>
-          <div className="input-group">
-            <input
-              type="email"
-              className="form-control"
-              size="50"
-              placeholder="Email Address"
-              required
-            />
-            <div className="input-group-btn">
-              <button type="button" className="btn btn-danger">
-                Subscribe
-              </button>
+    <React.Fragment>
+      <main>
+        <div className={classes.heroContent}>
+          <Container maxWidth="sm">
+            <Typography
+              component="h1"
+              variant="h4"
+              align="center"
+              color="textPrimary"
+              gutterBottom
+            >
+              About Us
+            </Typography>
+            <Typography
+              variant="h5"
+              align="center"
+              color="textSecondary"
+              paragraph
+            >
+              One of the leading e-commerce website currently trending in the
+              market All the new collections will be available in stock and user
+              can have good experince with the application.
+            </Typography>
+            <div className={classes.heroButtons}>
+              <Grid container spacing={2} justifyContent="center">
+                <Grid item>
+                  <Button variant="contained" color="primary">
+                    Available collections
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button variant="outlined" color="primary">
+                    Comming soon
+                  </Button>
+                </Grid>
+              </Grid>
             </div>
-          </div>
-        </form>
-      </div>
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-sm-8">
-            <h2>About Company Page</h2>
-            <h4>Lorem ipsum..</h4>
-            <p>Lorem ipsum..</p>
-            <button className="btn btn-primary">Get in Touch</button>
-          </div>
-          <div className="col-sm-4">
-            <span className="glyphicon glyphicon-signal logo"></span>
-          </div>
+          </Container>
         </div>
-      </div>
-
-      <div className="container-fluid bg-grey">
-        <div className="row">
-          <div className="col-sm-4">
-            <span className="glyphicon glyphicon-globe logo"></span>
-          </div>
-          <div className="col-sm-8">
-            <h2>Our Values</h2>
-            <h4>
-              <strong>MISSION:</strong> Our mission lorem ipsum..
-            </h4>
-            <p>
-              <strong>VISION:</strong> Our vision Lorem ipsum..
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+      </main>
+    </React.Fragment>
   );
 }

@@ -4,10 +4,16 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-secondary">
+    <nav
+      className="navbar navbar-expand-lg navbar-light"
+      style={{ backgroundColor: "#03002f" }}
+    >
       <div className="container-fluid">
         <div style={{ display: "flex", justifyContent: "space-around" }}>
-          <Link className="navbar-brand" to="/">
+          <Link
+            style={{ color: "white", textDecoration: "none", fontSize: "24px" }}
+            to="/"
+          >
             Fake Store
           </Link>
           <form
@@ -21,31 +27,37 @@ export default function Header() {
               aria-label="Search"
             />
           </form>
-          <ul
+          <div
             className="navbar-nav me-auto mb-2 mb-lg-0"
-            style={{ marginLeft: "60px" }}
+            style={{
+              marginLeft: "60px",
+              display: "flex",
+              gap: "25px",
+              fontSize: "20px",
+            }}
           >
-            <li className="nav-item">
-              <Link className="navbar-brand" to="/">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="navbar-brand" to="/about">
-                About
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="navbar-brand" to="/contact">
-                Contact
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="navbar-brand" to="/login">
-                Login/Register
-              </Link>
-            </li>
-          </ul>
+            <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+              Home
+            </Link>
+            <Link
+              to="/about"
+              style={{ color: "white", textDecoration: "none" }}
+            >
+              About
+            </Link>
+            <Link
+              to="/contact"
+              style={{ color: "white", textDecoration: "none" }}
+            >
+              Contact
+            </Link>
+            <Link
+              to="/login"
+              style={{ color: "white", textDecoration: "none" }}
+            >
+              Login/Register
+            </Link>
+          </div>
         </div>
       </div>
     </nav>
