@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { Link } from "react-router-dom";
+import { Link, useHistory, Redirect } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
@@ -30,6 +30,32 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const [userData, SetUserData] = useState({});
+
+  const history = useHistory();
+  const handleChange = (e) => {
+    SetUserData({ ...userData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    try {
+      fetch("http://localhost:8080/login", {
+        method: "POST",
+        body: JSON.stringify(userData),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((response) => response.json())
+        .then((res) => localStorage.setItem("token", res.token));
+    } catch {
+      console.log("Something went wrong");
+    }
+    const token = localStorage.getItem("token");
+    if (token) {
+      <Redirect to="/" />;
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -49,6 +75,7 @@ export default function SignIn() {
             label="Email Address"
             name="email"
             autoComplete="email"
+            onChange={handleChange}
           />
           <TextField
             margin="normal"
@@ -59,6 +86,7 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={handleChange}
           />
           <Button
             type="submit"
@@ -66,12 +94,13 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleSubmit}
           >
             Sign In
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link to="/forgat">Forgot password?</Link>
+              <Link to="/forgot">Forgot password?</Link>
             </Grid>
             <Grid item>
               <Link to="/register">{"Don't have an account? Sign Up"}</Link>

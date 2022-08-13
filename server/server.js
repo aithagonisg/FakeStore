@@ -1,14 +1,14 @@
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 const routes = require("./routes/route");
 
 const app = express();
-
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.json());
-
 const uri =
   "mongodb+srv://aithagonisg:Sathish@cluster0.0815log.mongodb.net/db_cart?retryWrites=true&w=majority";
 mongoose

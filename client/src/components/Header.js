@@ -1,8 +1,14 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import UserInfo from "./userInfo/UserInfo";
 import { Link } from "react-router-dom";
 
 export default function Header() {
+  const token = localStorage.getItem("token");
+  const [authToken, setAuthToken] = useState("");
+  useEffect(() => {
+    setAuthToken(token);
+  }, [token]);
+
   return (
     <nav
       style={{
@@ -47,21 +53,35 @@ export default function Header() {
             justifyContent: "flex-end",
           }}
         >
-          <Link to="/" style={{ color: "white", textDecoration: "none" }}>
-            Home
-          </Link>
-          <Link to="/about" style={{ color: "white", textDecoration: "none" }}>
-            About
-          </Link>
-          <Link
-            to="/contact"
-            style={{ color: "white", textDecoration: "none" }}
-          >
-            Contact
-          </Link>
-          <Link to="/login" style={{ color: "white", textDecoration: "none" }}>
-            Login/Register
-          </Link>
+          {authToken ? (
+            <>
+              <UserInfo />
+            </>
+          ) : (
+            <>
+              <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+                Home
+              </Link>
+              <Link
+                to="/about"
+                style={{ color: "white", textDecoration: "none" }}
+              >
+                About
+              </Link>
+              <Link
+                to="/contact"
+                style={{ color: "white", textDecoration: "none" }}
+              >
+                Contact
+              </Link>
+              <Link
+                to="/login"
+                style={{ color: "white", textDecoration: "none" }}
+              >
+                Login/Register
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>
