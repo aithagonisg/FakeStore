@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { AuthLoginRegister } from "../services/Authsevice";
+import { userInfo } from "../redux/actions";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -29,11 +32,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
+  const [formData, setFormData] = useState({});
+  const [isError, setIsError] = useState(false);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const classes = useStyles();
+
+  const handleSignUp = () => {
+    if (Object.keys(formData).length >= 4) {
+      setIsError(false);
+      AuthLoginRegister("register", formData)
+        .then((response) => response.json())
+        .then((result) => {
+          localStorage.setItem("token", result.token);
+          dispatch(userInfo(result));
+        });
+      history.push("/");
+    } else {
+      setIsError(true);
+    }
+  };
+
+  const handleDataChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
+        {isError && (
+          <div style={{ color: "red" }}>Please fill all the details</div>
+        )}
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
@@ -50,6 +80,7 @@ export default function SignUp() {
                 fullWidth
                 id="firstName"
                 label="First Name"
+                onChange={handleDataChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -60,6 +91,7 @@ export default function SignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                onChange={handleDataChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -70,6 +102,7 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={handleDataChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -81,15 +114,16 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={handleDataChange}
               />
             </Grid>
           </Grid>
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleSignUp}
           >
             Sign Up
           </Button>

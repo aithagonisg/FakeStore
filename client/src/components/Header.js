@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import UserInfo from "./userInfo/UserInfo";
 import { Link } from "react-router-dom";
 
 export default function Header() {
   const token = localStorage.getItem("token");
   const [authToken, setAuthToken] = useState("");
+  const [info, setInfo] = useState({});
+  const userData = useSelector((state) => state);
   useEffect(() => {
     setAuthToken(token);
-  }, [token]);
+    setInfo(userData.userInfo);
+  }, [token, userData]);
 
   return (
     <nav
@@ -37,7 +41,7 @@ export default function Header() {
         >
           Fake Store
         </Link>
-        <form className="d-flex" style={{ flexBasis: "40%" }}>
+        <form className="d-flex" style={{ flexBasis: "35%" }}>
           <input
             className="form-control me-2"
             type="search"
@@ -55,7 +59,7 @@ export default function Header() {
         >
           {authToken ? (
             <>
-              <UserInfo />
+              <UserInfo info={info} />
             </>
           ) : (
             <>

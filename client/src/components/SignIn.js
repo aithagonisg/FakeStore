@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { Link, useHistory, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { AuthLoginRegister } from "../services/Authsevice";
+import { userInfo } from "../redux/actions";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -31,30 +34,21 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
   const classes = useStyles();
   const [userData, SetUserData] = useState({});
-
+  const dispatch = useDispatch();
   const history = useHistory();
+
   const handleChange = (e) => {
     SetUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
-    try {
-      fetch("http://localhost:8080/login", {
-        method: "POST",
-        body: JSON.stringify(userData),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      })
-        .then((response) => response.json())
-        .then((res) => localStorage.setItem("token", res.token));
-    } catch {
-      console.log("Something went wrong");
-    }
-    const token = localStorage.getItem("token");
-    if (token) {
-      <Redirect to="/" />;
-    }
+    AuthLoginRegister("login", userData)
+      .then((response) => response.json())
+      .then((result) => {
+        localStorage.setItem("token", result.token);
+        dispatch(userInfo(result));
+      });
+    history.push("/");
   };
 
   return (
@@ -89,7 +83,6 @@ export default function SignIn() {
             onChange={handleChange}
           />
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"

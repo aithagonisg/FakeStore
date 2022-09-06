@@ -21,7 +21,7 @@ const Body = ({ token }) => {
             <div className="carousel-item active">
               <img
                 className="d-block w-100"
-                style={{ height: "544px" }}
+                style={{ height: "520px" }}
                 src={hero3}
                 alt="First slide"
               />

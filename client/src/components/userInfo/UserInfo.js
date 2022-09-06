@@ -4,7 +4,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
-export default function UserInfo() {
+export default function UserInfo({ info }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -17,7 +17,9 @@ export default function UserInfo() {
 
   return (
     <div style={{ display: "flex" }}>
-      <div style={{ color: "white", textDecoration: "none" }}> UserName</div>
+      <div style={{ color: "white", textDecoration: "none" }}>
+        {info.firstName}
+      </div>
       <Button
         aria-controls="simple-menu"
         aria-haspopup="true"
