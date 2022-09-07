@@ -4,41 +4,15 @@ import Contact from "./Contact";
 import About from "./About";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
-import hero3 from "./images/hero-3.jpg";
-
-const Body = ({ token }) => {
-  return (
-    <>
-      {token ? (
-        <>Products Page</>
-      ) : (
-        <div
-          id="carouselExampleIndicators"
-          className="carousel slide"
-          data-ride="carousel"
-        >
-          <div className="carousel-inner">
-            <div className="carousel-item active">
-              <img
-                className="d-block w-100"
-                style={{ height: "520px" }}
-                src={hero3}
-                alt="First slide"
-              />
-            </div>
-          </div>
-        </div>
-      )}
-    </>
-  );
-};
+import { Body } from "../components/Body";
 
 function RoutesBasic() {
   const token = localStorage.getItem("token");
+  console.log(token);
   return (
     <Switch>
       <Route path="/" exact>
-        <Body token={token} />
+        <Body />
       </Route>
       <Route path="/contact">
         <Contact />

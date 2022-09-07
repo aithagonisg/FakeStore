@@ -14,9 +14,6 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
   },
-  cart: {
-    type: Array,
-  },
 });
 
 const Registration = mongoose.model("userenv", userSchema);

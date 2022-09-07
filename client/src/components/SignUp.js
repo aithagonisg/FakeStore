@@ -46,6 +46,7 @@ export default function SignUp() {
         .then((response) => response.json())
         .then((result) => {
           localStorage.setItem("token", result.token);
+          localStorage.setItem("userInfo", JSON.stringify(result));
           dispatch(userInfo(result));
         });
       history.push("/");

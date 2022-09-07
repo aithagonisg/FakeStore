@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import UserInfo from "./userInfo/UserInfo";
 import { Link } from "react-router-dom";
+import Cart from "./cart/Cart";
 
 export default function Header() {
   const token = localStorage.getItem("token");
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   const [authToken, setAuthToken] = useState("");
   const [info, setInfo] = useState({});
   const userData = useSelector((state) => state);
   useEffect(() => {
     setAuthToken(token);
-    setInfo(userData.userInfo);
+    setInfo(userInfo);
   }, [token, userData]);
 
   return (
@@ -59,6 +61,7 @@ export default function Header() {
         >
           {authToken ? (
             <>
+              <Cart />
               <UserInfo info={info} />
             </>
           ) : (

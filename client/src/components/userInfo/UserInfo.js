@@ -3,9 +3,15 @@ import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import { useHistory } from "react-router-dom";
+import { userInfo } from "../../redux/actions";
+import { useDispatch } from "react-redux";
 
 export default function UserInfo({ info }) {
+  console.log(info);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -14,11 +20,17 @@ export default function UserInfo({ info }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userInfo");
+    setAnchorEl(null);
+    dispatch(userInfo({}));
+    history.push("/");
+  };
   return (
     <div style={{ display: "flex" }}>
       <div style={{ color: "white", textDecoration: "none" }}>
-        {info.firstName}
+        {info?.firstName + " " + info?.lastName}
       </div>
       <Button
         aria-controls="simple-menu"
@@ -37,7 +49,7 @@ export default function UserInfo({ info }) {
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>
   );

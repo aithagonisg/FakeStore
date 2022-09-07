@@ -12,7 +12,6 @@ const login = async (req, res, next) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        cart: user.cart,
         token: token,
       };
       res.status(200).json(response);

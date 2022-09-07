@@ -1,10 +1,10 @@
 const Registration = require("../models/register");
+const CartList = require("../models/cartList");
 const { generateAccessToken } = require("../jwtUtils/jwt");
 
 const register = async (req, res, next) => {
   const body = {
     ...req.body,
-    cart: [],
   };
   let user = await Registration.findOne({ email: req.body.email });
   if (user) {
@@ -13,12 +13,13 @@ const register = async (req, res, next) => {
     try {
       user = new Registration(body);
       await user.save();
+      const cart = new CartList({ email: body.email, cart: [], orders: [] });
+      await cart.save();
       const token = await generateAccessToken(req.body.email);
       const response = {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        cart: user.cart,
         token: token,
       };
       res.status(200).json(response);
