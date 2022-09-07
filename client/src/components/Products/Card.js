@@ -7,6 +7,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { Divider } from "@material-ui/core";
+import { genetateImages } from "../images/generateImages";
 
 const useStyles = makeStyles({
   root: {
@@ -34,11 +35,11 @@ export default function ProductCard({ cardInfo }) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} key={product_name}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={image}
+          image={genetateImages[image]}
           title="Contemplative Reptile"
         />
         <Divider variant="middle" className={classes.divide} />

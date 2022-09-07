@@ -7,8 +7,6 @@ import SignUp from "../components/SignUp";
 import { Body } from "../components/Body";
 
 function RoutesBasic() {
-  const token = localStorage.getItem("token");
-  console.log(token);
   return (
     <Switch>
       <Route path="/" exact>
@@ -20,7 +18,7 @@ function RoutesBasic() {
       <Route path="/about">
         <About />
       </Route>
-      {token ? (
+      {localStorage.getItem("token") ? (
         <Redirect
           to={{
             pathname: "/",

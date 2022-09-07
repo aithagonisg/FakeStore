@@ -8,7 +8,6 @@ import { userInfo } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 
 export default function UserInfo({ info }) {
-  console.log(info);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
   const history = useHistory();

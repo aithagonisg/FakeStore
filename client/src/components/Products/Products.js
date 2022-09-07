@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import ProductCard from "./Card";
 import {
@@ -21,12 +21,14 @@ export default function Products() {
         dispatch(setCartData(data.cart.cart));
         dispatch(setOrdersData(data.cart.orders));
       });
-  }, []);
+  });
 
   return (
     <div className="products-grid">
-      {products.map((item) => (
-        <ProductCard cardInfo={item} />
+      {products.map((item, index) => (
+        <Fragment key={index}>
+          <ProductCard cardInfo={item} />
+        </Fragment>
       ))}
     </div>
   );
