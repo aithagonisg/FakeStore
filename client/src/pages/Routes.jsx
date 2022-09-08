@@ -5,6 +5,7 @@ import About from "./About";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
 import { Body } from "../components/Body";
+import ProductDescription from "../components/Products/ProductDescription";
 
 function RoutesBasic() {
   return (
@@ -17,6 +18,9 @@ function RoutesBasic() {
       </Route>
       <Route path="/about">
         <About />
+      </Route>
+      <Route path="/description">
+        <ProductDescription />
       </Route>
       {localStorage.getItem("token") ? (
         <Redirect

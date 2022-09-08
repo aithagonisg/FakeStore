@@ -23,3 +23,27 @@ export const getCartAndOrdersList = async () => {
     },
   });
 };
+
+export const addToCartList = async (data) => {
+  const token = localStorage.getItem("token");
+  return await fetch(`${API_ORGN}/addtocart`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const removeFromCartList = async (data) => {
+  const token = localStorage.getItem("token");
+  return await fetch(`${API_ORGN}/removefromcart`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      authorization: `Bearer ${token}`,
+    },
+  });
+};

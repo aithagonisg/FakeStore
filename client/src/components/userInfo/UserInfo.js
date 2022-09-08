@@ -45,6 +45,7 @@ export default function UserInfo({ info }) {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        style={{ top: "32px" }}
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>

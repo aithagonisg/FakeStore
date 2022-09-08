@@ -1,0 +1,8 @@
+.product_name span {
+  width: 70px;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0px 20px;
+}

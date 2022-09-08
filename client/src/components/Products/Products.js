@@ -1,27 +1,37 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "./Card";
 import {
   getProductsList,
   getCartAndOrdersList,
 } from "../../services/Authsevice";
-import { setCartData, setOrdersData } from "../../redux/actions";
+import {
+  setCartData,
+  setOrdersData,
+  setProductsData,
+} from "../../redux/actions";
 import "./products.css";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
+  const prod = useSelector((state) => state.products);
   const dispatch = useDispatch();
   useEffect(() => {
     getProductsList()
       .then((res) => res.json())
-      .then((products) => setProducts(products));
+      .then((products) => {
+        dispatch(setProductsData(products));
+      });
     getCartAndOrdersList()
       .then((res) => res.json())
       .then((data) => {
         dispatch(setCartData(data.cart.cart));
         dispatch(setOrdersData(data.cart.orders));
       });
-  });
+  }, []);
+  useEffect(() => {
+    setProducts(prod);
+  }, [prod]);
 
   return (
     <div className="products-grid">
