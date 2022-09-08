@@ -14,6 +14,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { genetateImages } from "../images/generateImages";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -84,27 +85,35 @@ export default function ProductDescription() {
           </AppBar>
           <main>
             <div className={classes.heroContent}>
-              <Container>Product Images</Container>
+              <Container
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "450px",
+                }}
+              >
+                <img src={genetateImages[cardInfo.image]} />
+              </Container>
               <Container maxWidth="sm">
                 <Typography
                   component="h1"
                   variant="h4"
-                  align="center"
                   color="textPrimary"
                   gutterBottom
                 >
-                  {cardInfo?.product_name}
+                  ProductName: {cardInfo?.product_name}
                 </Typography>
-                <Typography
-                  variant="h5"
-                  align="center"
-                  color="textSecondary"
-                  paragraph
-                >
-                  {cardInfo?.productDetails?.Description}
+                <Typography variant="h5" color="textSecondary" paragraph>
+                  Description: {cardInfo?.productDetails?.Description}
+                </Typography>
+                <Typography variant="h5" color="textSecondary" paragraph>
+                  Inches : {cardInfo?.productDetails?.inches}
+                </Typography>
+                <Typography variant="h5" color="textSecondary" paragraph>
+                  Price : {cardInfo?.productDetails?.price}
                 </Typography>
                 <div className={classes.heroButtons}>
-                  <Grid container spacing={2} justifyContent="center">
+                  <Grid container spacing={2}>
                     <Grid item>
                       <Button variant="contained" color="primary">
                         Add To Cart
