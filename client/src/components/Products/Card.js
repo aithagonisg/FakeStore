@@ -12,6 +12,7 @@ import { Divider } from "@material-ui/core";
 import { genetateImages } from "../images/generateImages";
 import { addToCartList, getCartAndOrdersList } from "../../services/Authsevice";
 import { setCartData, setOrdersData } from "../../redux/actions";
+import { currencyFormat } from "../../utils/currencyFormat";
 
 const useStyles = makeStyles({
   root: {
@@ -92,9 +93,7 @@ export default function ProductCard({ cardInfo }) {
           </div>
           <Typography variant="h5" component="h4">
             &#8377;
-            {new Intl.NumberFormat("en-IN", {
-              maximumSignificantDigits: 3,
-            }).format(productDetails.price)}
+            {currencyFormat(productDetails.price)}
           </Typography>
         </CardContent>
       </CardActionArea>

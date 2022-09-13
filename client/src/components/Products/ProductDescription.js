@@ -77,7 +77,7 @@ export default function ProductDescription() {
         <>
           <CssBaseline />
           <AppBar position="relative">
-            <Toolbar>
+            <Toolbar style={{ minHeight: "48px" }}>
               <Typography variant="h4" color="inherit" noWrap>
                 {cardInfo?.product_category} Details
               </Typography>
@@ -92,7 +92,10 @@ export default function ProductDescription() {
                   width: "450px",
                 }}
               >
-                <img src={genetateImages[cardInfo.image]} />
+                <img
+                  style={{ width: "450px" }}
+                  src={genetateImages[cardInfo.image]}
+                />
               </Container>
               <Container maxWidth="sm">
                 <Typography

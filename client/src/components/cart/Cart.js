@@ -22,6 +22,7 @@ import {
 import { setCartData, setOrdersData } from "../../redux/actions";
 
 import "./Cart.css";
+import { useHistory } from "react-router-dom";
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -71,6 +72,7 @@ export default function Cart() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -80,6 +82,12 @@ export default function Cart() {
     setAnchorEl(null);
   };
   const handleNagivateToCartPage = () => {
+    history.push({
+      pathname: "/cartList",
+      state: {
+        isListView: true,
+      },
+    });
     //navigate to cart page
   };
 
