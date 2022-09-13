@@ -19,7 +19,11 @@ import {
   removeFromCartList,
   getCartAndOrdersList,
 } from "../../services/Authsevice";
-import { setCartData, setOrdersData } from "../../redux/actions";
+import {
+  setCartData,
+  setOrdersData,
+  setSnackBarInfo,
+} from "../../redux/actions";
 
 import "./Cart.css";
 import { useHistory } from "react-router-dom";
@@ -95,14 +99,21 @@ export default function Cart() {
     handleClose();
     removeFromCartList(cardInfo)
       .then((res) => res.json())
-      .then((item) =>
+      .then((item) => {
+        dispatch(
+          setSnackBarInfo({
+            isEnable: true,
+            severity: "success",
+            message: `${cardInfo.image}, Removed item from cart`,
+          })
+        );
         getCartAndOrdersList()
           .then((res) => res.json())
           .then((data) => {
             dispatch(setCartData(data.cart.cart));
             dispatch(setOrdersData(data.cart.orders));
-          })
-      );
+          });
+      });
   };
 
   return (

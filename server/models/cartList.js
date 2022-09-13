@@ -11,6 +11,15 @@ const userSchema = new mongoose.Schema({
   orders: {
     type: Array,
   },
+  address: {
+    type: Array,
+  },
+  cardDeatils: {
+    type: Array,
+  },
+  paymentDetails: {
+    type: Array,
+  },
 });
 
 const CartList = mongoose.model("userCartList", userSchema);

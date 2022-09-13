@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { AuthLoginRegister } from "../services/Authsevice";
-import { userInfo } from "../redux/actions";
+import { userInfo, setSnackBarInfo } from "../redux/actions";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -45,11 +45,28 @@ export default function SignUp() {
       AuthLoginRegister("register", formData)
         .then((response) => response.json())
         .then((result) => {
-          localStorage.setItem("token", result.token);
-          localStorage.setItem("userInfo", JSON.stringify(result));
-          dispatch(userInfo(result));
+          if (result.token) {
+            localStorage.setItem("token", result.token);
+            localStorage.setItem("userInfo", JSON.stringify(result));
+            dispatch(userInfo(result));
+            dispatch(
+              setSnackBarInfo({
+                isEnable: true,
+                severity: "success",
+                message: "Registration Success",
+              })
+            );
+            history.push("/");
+          } else {
+            dispatch(
+              setSnackBarInfo({
+                isEnable: true,
+                severity: "error",
+                message: result,
+              })
+            );
+          }
         });
-      history.push("/");
     } else {
       setIsError(true);
     }

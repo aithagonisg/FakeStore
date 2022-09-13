@@ -13,7 +13,14 @@ const register = async (req, res, next) => {
     try {
       user = new Registration(body);
       await user.save();
-      const cart = new CartList({ email: body.email, cart: [], orders: [] });
+      const cart = new CartList({
+        email: body.email,
+        cart: [],
+        orders: [],
+        address: [],
+        cardDeatils: [],
+        paymentDetails: [],
+      });
       await cart.save();
       const token = await generateAccessToken(req.body.email);
       const response = {
