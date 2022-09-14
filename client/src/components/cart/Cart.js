@@ -12,7 +12,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Divider from "@material-ui/core/Divider";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import ListAltIcon from "@material-ui/icons/ListAlt";
 import { useDispatch } from "react-redux";
 import { genetateImages } from "../images/generateImages";
 import { RemoveItemFromCart } from "../../redux/actions";
@@ -113,20 +113,6 @@ export default function Cart() {
         onClose={handleClose}
       >
         <List className={classes.root}>
-          <ListItem
-            style={{
-              paddingTop: "0px",
-              backgroundColor: "blue",
-              color: "white",
-              cursor: "pointer",
-            }}
-            onClick={handleNagivateToCartPage}
-          >
-            <ListItemText primary="Navigate To Cart" />
-            <ArrowForwardIcon />
-            <ArrowForwardIcon />
-          </ListItem>
-          <Divider component="li" />
           <ListItem style={{ paddingTop: "0px" }}>
             <ListItemText primary="Image" style={{ paddingRight: "20px" }} />
             <ListItemText primary="Name" style={{ paddingRight: "20px" }} />
@@ -167,6 +153,18 @@ export default function Cart() {
               style={{ paddingRight: "60px" }}
             />
             <ListItemText primary={totalAmount} />
+          </ListItem>
+          <Divider component="li" />
+          <ListItem
+            style={{
+              height: "15px",
+              paddingTop: "15px",
+              cursor: "pointer",
+            }}
+            onClick={handleNagivateToCartPage}
+          >
+            <ListAltIcon />
+            <ListItemText primary="Cart List" />
           </ListItem>
         </List>
       </StyledMenu>
