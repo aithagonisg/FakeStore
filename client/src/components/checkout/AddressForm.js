@@ -8,12 +8,12 @@ import { useSelector } from "react-redux";
 export default function AddressForm() {
   const add_store = useSelector((state) => state.address);
   const [selectedAddress, setSelectedAddress] = useState({});
+  console.log(selectedAddress);
   return (
     <React.Fragment>
       <AddressData
         addressList={add_store}
         setSelectedAddress={setSelectedAddress}
-        selectedAddress={selectedAddress}
       />
       <Typography variant="h6" gutterBottom>
         Shipping address
@@ -22,21 +22,12 @@ export default function AddressForm() {
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="firstName"
-            name="firstName"
-            label="First name"
+            id="H-No"
+            name="H-No"
+            label={selectedAddress["H-No"] ? "" : "H-No"}
             fullWidth
+            value={selectedAddress["H-No"] ? selectedAddress["H-No"] : ""}
             autoComplete="given-name"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="lastName"
-            name="lastName"
-            label="Last name"
-            fullWidth
-            autoComplete="family-name"
           />
         </Grid>
         <Grid item xs={12}>
@@ -44,8 +35,11 @@ export default function AddressForm() {
             required
             id="address1"
             name="address1"
-            label="Address line 1"
+            label={selectedAddress["address1"] ? "" : "Address line 1"}
             fullWidth
+            value={
+              selectedAddress["address1"] ? selectedAddress["address1"] : ""
+            }
             autoComplete="shipping address-line1"
           />
         </Grid>
@@ -53,7 +47,10 @@ export default function AddressForm() {
           <TextField
             id="address2"
             name="address2"
-            label="Address line 2"
+            value={
+              selectedAddress["address2"] ? selectedAddress["address2"] : ""
+            }
+            label={selectedAddress["address2"] ? "" : "Address line 2"}
             fullWidth
             autoComplete="shipping address-line2"
           />
@@ -63,7 +60,8 @@ export default function AddressForm() {
             required
             id="city"
             name="city"
-            label="City"
+            value={selectedAddress["city"] ? selectedAddress["city"] : ""}
+            label={selectedAddress["city"] ? "" : "City"}
             fullWidth
             autoComplete="shipping address-level2"
           />
@@ -72,7 +70,8 @@ export default function AddressForm() {
           <TextField
             id="state"
             name="state"
-            label="State/Province/Region"
+            value={selectedAddress["state"] ? selectedAddress["state"] : ""}
+            label={selectedAddress["state"] ? "" : "State/Province/Region"}
             fullWidth
           />
         </Grid>
@@ -81,7 +80,8 @@ export default function AddressForm() {
             required
             id="zip"
             name="zip"
-            label="Zip / Postal code"
+            value={selectedAddress["zip"] ? selectedAddress["zip"] : ""}
+            label={selectedAddress["zip"] ? "" : "Zip / Postal code"}
             fullWidth
             autoComplete="shipping postal-code"
           />
@@ -91,7 +91,8 @@ export default function AddressForm() {
             required
             id="country"
             name="country"
-            label="Country"
+            value={selectedAddress["country"] ? selectedAddress["country"] : ""}
+            label={selectedAddress["country"] ? "" : "Country"}
             fullWidth
             autoComplete="shipping country"
           />

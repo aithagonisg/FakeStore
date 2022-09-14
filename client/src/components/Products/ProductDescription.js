@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
-import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -57,7 +56,7 @@ export default function ProductDescription() {
   const prod = useSelector((state) => state.products);
   const [cardInfo, setCardInfo] = useState({});
 
-  useEffect(() => {
+  const addCardInfoToState = () => {
     const id = window.location.search.split("=")[1];
     const cardInfo_store = prod.filter((item) => item._id === id);
     if (!cardInfo) {
@@ -65,6 +64,9 @@ export default function ProductDescription() {
     } else {
       setCardInfo(cardInfo_store[0]);
     }
+  };
+  useEffect(() => {
+    addCardInfoToState();
   }, [prod]);
 
   const classes = useStyles();
@@ -95,6 +97,7 @@ export default function ProductDescription() {
                 <img
                   style={{ width: "450px" }}
                   src={genetateImages[cardInfo.image]}
+                  alt=""
                 />
               </Container>
               <Container maxWidth="sm">

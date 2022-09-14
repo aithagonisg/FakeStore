@@ -17,7 +17,8 @@ export default function Products() {
   const [products, setProducts] = useState([]);
   const prod = useSelector((state) => state.products);
   const dispatch = useDispatch();
-  useEffect(() => {
+
+  const loadProducts = () => {
     getProductsList()
       .then((res) => res.json())
       .then((products) => {
@@ -30,6 +31,9 @@ export default function Products() {
         dispatch(setOrdersData(data.cart.orders));
         dispatch(setAddressData(data.cart.address));
       });
+  };
+  useEffect(() => {
+    loadProducts();
   }, []);
   useEffect(() => {
     setProducts(prod);

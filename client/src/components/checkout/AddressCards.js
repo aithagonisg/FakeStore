@@ -14,7 +14,6 @@ const useStyles = makeStyles({
 });
 
 export default function AddressCards({ addressInfo }) {
-  console.log(addressInfo);
   const classes = useStyles();
   return (
     <Card variant="outlined">

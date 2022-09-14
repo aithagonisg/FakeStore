@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import { Button } from "@material-ui/core";
 import { addAddress, getCartAndOrdersList } from "../../services/Authsevice";
 import {
@@ -28,11 +26,14 @@ export default function PermanentAddressForm() {
   };
 
   useEffect(() => {
-    if (add_store.length > 0) {
+    const permanentAdd = add_store.filter((item) => item.isPermanentAddress);
+    if (permanentAdd.length > 0) {
       setIsPermanentAddressDisabled(true);
       setEditBtnEnable(false);
       setIsStoreData(true);
-      setPermanentAddressInfo(add_store[0]);
+      setPermanentAddressInfo(permanentAdd[0]);
+    } else {
+      setEditBtnEnable(true);
     }
   }, [add_store]);
 

@@ -61,6 +61,7 @@ export default function ListTable({ rows }) {
                 <img
                   src={genetateImages[row.image]}
                   style={{ width: "50px", height: "50px" }}
+                  alt=""
                 />
               </TableCell>
               <TableCell>{row.product_category}</TableCell>

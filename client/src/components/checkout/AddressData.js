@@ -6,15 +6,20 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import AddressCards from "./AddressCards";
 
-export default function AddressData({
-  addressList,
-  setSelectedAddress,
-  selectedAddress,
-}) {
-  const [value, setValue] = React.useState("female");
+export default function AddressData({ addressList, setSelectedAddress }) {
+  const [value, setValue] = React.useState("default");
 
   const handleChange = (event) => {
+    let add_Ifno;
     setValue(event.target.value);
+    if (event.target.value === "permanent") {
+      add_Ifno = addressList.filter((item) => item.isPermanentAddress);
+    } else if (event.target.value === "current") {
+      add_Ifno = addressList.filter((item) => !item.isPermanentAddress);
+    } else {
+      add_Ifno = [{}];
+    }
+    setSelectedAddress(add_Ifno[0]);
   };
 
   return (
@@ -25,10 +30,12 @@ export default function AddressData({
         name="address"
         value={value}
         onChange={handleChange}
+        style={{ display: "flex", flexDirection: "row", flexWrap: "nowrap" }}
       >
+        <FormControlLabel value="default" control={<Radio />} label="Deafult" />
         {addressList.map((item) => (
           <FormControlLabel
-            value="permanent"
+            value={item.isPermanentAddress ? "permanent" : "current"}
             control={<Radio />}
             label={<AddressCards addressInfo={item} />}
           />
