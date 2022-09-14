@@ -47,3 +47,15 @@ export const removeFromCartList = async (data) => {
     },
   });
 };
+
+export const addAddress = async (data) => {
+  const token = localStorage.getItem("token");
+  return await fetch(`${API_ORGN}/addaddress`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      authorization: `Bearer ${token}`,
+    },
+  });
+};

@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
+import AddressData from "./AddressData";
+import { useSelector } from "react-redux";
 
 export default function AddressForm() {
+  const add_store = useSelector((state) => state.address);
+  const [selectedAddress, setSelectedAddress] = useState({});
   return (
     <React.Fragment>
+      <AddressData
+        addressList={add_store}
+        setSelectedAddress={setSelectedAddress}
+        selectedAddress={selectedAddress}
+      />
       <Typography variant="h6" gutterBottom>
         Shipping address
       </Typography>
@@ -87,14 +94,6 @@ export default function AddressForm() {
             label="Country"
             fullWidth
             autoComplete="shipping country"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={
-              <Checkbox color="secondary" name="saveAddress" value="yes" />
-            }
-            label="Use this address for payment details"
           />
         </Grid>
       </Grid>

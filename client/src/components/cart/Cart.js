@@ -163,6 +163,7 @@ export default function Cart() {
                   <img
                     src={genetateImages[item.image]}
                     style={{ width: "30px", height: "30px" }}
+                    alt=""
                   />
                 </ListItemAvatar>
                 <ListItemText

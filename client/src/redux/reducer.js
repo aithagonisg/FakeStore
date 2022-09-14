@@ -4,6 +4,7 @@ import {
   ORDERS_DATA,
   PRODUCTS,
   SNACKBAR_INFO,
+  ADDRESS_DATA,
 } from "./ActionTypes";
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   products: [],
   cart: [],
   orders: [],
+  address: [],
   snackInfo: {
     isEnable: false,
     severity: "info",
@@ -39,6 +41,11 @@ export const RootReducer = (state = initialState, action) => {
       return {
         ...state,
         orders: action.payload,
+      };
+    case ADDRESS_DATA:
+      return {
+        ...state,
+        address: action.payload,
       };
     case SNACKBAR_INFO:
       return {

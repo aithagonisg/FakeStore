@@ -9,6 +9,7 @@ import {
   setCartData,
   setOrdersData,
   setProductsData,
+  setAddressData,
 } from "../../redux/actions";
 import "./products.css";
 
@@ -27,6 +28,7 @@ export default function Products() {
       .then((data) => {
         dispatch(setCartData(data.cart.cart));
         dispatch(setOrdersData(data.cart.orders));
+        dispatch(setAddressData(data.cart.address));
       });
   }, []);
   useEffect(() => {

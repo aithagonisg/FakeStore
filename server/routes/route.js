@@ -8,6 +8,7 @@ const {
   addToCart,
   removeItemFromCart,
   getCartAndOrdersList,
+  addAddress,
 } = require("../controller/addToCart");
 
 router.get("/products", products);
@@ -19,6 +20,8 @@ router.post("/login", login);
 router.post("/addtocart", authenticateToken, addToCart);
 
 router.post("/removefromcart", authenticateToken, removeItemFromCart);
+
+router.post("/addaddress", authenticateToken, addAddress);
 
 router.post("/getCartAndOrderList", authenticateToken, getCartAndOrdersList);
 

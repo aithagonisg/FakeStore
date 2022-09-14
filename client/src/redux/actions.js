@@ -4,6 +4,7 @@ import {
   ORDERS_DATA,
   PRODUCTS,
   SNACKBAR_INFO,
+  ADDRESS_DATA,
 } from "./ActionTypes";
 export const userInfo = (data) => ({
   type: USER_INFO,
@@ -17,6 +18,11 @@ export const setCartData = (data) => ({
 
 export const setOrdersData = (data) => ({
   type: ORDERS_DATA,
+  payload: data,
+});
+
+export const setAddressData = (data) => ({
+  type: ADDRESS_DATA,
   payload: data,
 });
 

@@ -8,6 +8,7 @@ import { Body } from "../components/Body";
 import ProductDescription from "../components/Products/ProductDescription";
 import CartTableList from "../components/CartList/CartTableList";
 import Checkout from "../components/checkout/Checkout";
+import MyAccount from "../components/userInfo/MyAccount";
 
 const NOMatch = () => {
   return (
@@ -47,6 +48,9 @@ function RoutesBasic() {
       </Route>
       <Route path="/checkout">
         <Checkout />
+      </Route>
+      <Route path="/myaccount">
+        <MyAccount />
       </Route>
       <Route path="*">
         <NOMatch />

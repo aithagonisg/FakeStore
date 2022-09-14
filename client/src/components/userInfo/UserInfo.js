@@ -26,6 +26,10 @@ export default function UserInfo({ info }) {
     dispatch(userInfo({}));
     history.push("/");
   };
+  const navigateToAccount = () => {
+    setAnchorEl(null);
+    history.push("/myaccount");
+  };
   return (
     <div style={{ display: "flex" }}>
       <div style={{ color: "white", textDecoration: "none" }}>
@@ -48,7 +52,7 @@ export default function UserInfo({ info }) {
         style={{ top: "32px" }}
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={navigateToAccount}>My account</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>
