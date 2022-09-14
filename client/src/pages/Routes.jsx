@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Contact from "./Contact";
 import About from "./About";
 import SignIn from "../components/SignIn";
@@ -9,6 +9,8 @@ import ProductDescription from "../components/Products/ProductDescription";
 import CartTableList from "../components/CartList/CartTableList";
 import Checkout from "../components/checkout/Checkout";
 import MyAccount from "../components/userInfo/MyAccount";
+import { LoadProducts } from "../redux/actions";
+import { useDispatch } from "react-redux";
 
 const NOMatch = () => {
   return (
@@ -19,6 +21,11 @@ const NOMatch = () => {
 };
 
 function RoutesBasic() {
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
+  if (token) {
+    dispatch(LoadProducts());
+  }
   return (
     <Switch>
       <Route path="/" exact>
@@ -38,10 +45,10 @@ function RoutesBasic() {
         <>Coming soon</>
       </Route>
       <Route path="/login">
-        <SignIn />
+        {localStorage.getItem("token") ? <Redirect to="/" /> : <SignIn />}
       </Route>
       <Route path="/register">
-        <SignUp />
+        {localStorage.getItem("token") ? <Redirect to="/" /> : <SignUp />}
       </Route>
       <Route path="/cartList">
         <CartTableList />

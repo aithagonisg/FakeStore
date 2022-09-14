@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
 import ListTable from "./ListTable";
 
 function CartTableList(props) {
@@ -12,7 +11,7 @@ function CartTableList(props) {
 
   return (
     <div>
-      {cartList.length <= 0 ? <Redirect to="/" /> : <ListTable rows={list} />}
+      <ListTable rows={list} />
     </div>
   );
 }

@@ -59,11 +59,7 @@ export default function ProductDescription() {
   const addCardInfoToState = () => {
     const id = window.location.search.split("=")[1];
     const cardInfo_store = prod.filter((item) => item._id === id);
-    if (!cardInfo) {
-      history.push("/");
-    } else {
-      setCardInfo(cardInfo_store[0]);
-    }
+    setCardInfo(cardInfo_store[0]);
   };
   useEffect(() => {
     addCardInfoToState();
@@ -72,111 +68,105 @@ export default function ProductDescription() {
   const classes = useStyles();
 
   return (
-    <React.Fragment>
-      {!prod.length > 0 ? (
-        <Redirect to="/" />
-      ) : (
-        <>
-          <CssBaseline />
-          <AppBar position="relative">
-            <Toolbar style={{ minHeight: "48px" }}>
-              <Typography variant="h4" color="inherit" noWrap>
-                {cardInfo?.product_category} Details
-              </Typography>
-            </Toolbar>
-          </AppBar>
-          <main>
-            <div className={classes.heroContent}>
-              <Container
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  width: "450px",
-                }}
-              >
-                <img
-                  style={{ width: "450px" }}
-                  src={genetateImages[cardInfo.image]}
-                  alt=""
-                />
-              </Container>
-              <Container maxWidth="sm">
-                <Typography
-                  component="h1"
-                  variant="h4"
-                  color="textPrimary"
-                  gutterBottom
-                >
-                  ProductName: {cardInfo?.product_name}
-                </Typography>
-                <Typography variant="h5" color="textSecondary" paragraph>
-                  Description: {cardInfo?.productDetails?.Description}
-                </Typography>
-                <Typography variant="h5" color="textSecondary" paragraph>
-                  Inches : {cardInfo?.productDetails?.inches}
-                </Typography>
-                <Typography variant="h5" color="textSecondary" paragraph>
-                  Price : {cardInfo?.productDetails?.price}
-                </Typography>
-                <div className={classes.heroButtons}>
-                  <Grid container spacing={2}>
-                    <Grid item>
-                      <Button variant="contained" color="primary">
-                        Add To Cart
-                      </Button>
-                    </Grid>
-                    <Grid item>
-                      <Button variant="contained" color="secondary">
-                        Buy Now
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </div>
-              </Container>
-            </div>
-            <Container className={classes.cardGrid} maxWidth="md">
-              <Typography
-                component="h1"
-                variant="h4"
-                color="textPrimary"
-                gutterBottom
-              >
-                Recently Ordered Details
-              </Typography>
-              <Grid container spacing={4}>
-                {cards.map((card) => (
-                  <Grid item key={card} xs={12} sm={6} md={4}>
-                    <Card className={classes.card}>
-                      <CardMedia
-                        className={classes.cardMedia}
-                        image="https://source.unsplash.com/random"
-                        title="Image title"
-                      />
-                      <CardContent className={classes.cardContent}>
-                        <Typography gutterBottom variant="h5" component="h2">
-                          Heading
-                        </Typography>
-                        <Typography>
-                          This is a media card. You can use this section to
-                          describe the content.
-                        </Typography>
-                      </CardContent>
-                      <CardActions>
-                        <Button size="small" color="primary">
-                          View
-                        </Button>
-                        <Button size="small" color="primary">
-                          Edit
-                        </Button>
-                      </CardActions>
-                    </Card>
-                  </Grid>
-                ))}
+    <>
+      <CssBaseline />
+      <AppBar position="relative">
+        <Toolbar style={{ minHeight: "48px" }}>
+          <Typography variant="h4" color="inherit" noWrap>
+            {cardInfo?.product_category} Details
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <main>
+        <div className={classes.heroContent}>
+          <Container
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              width: "450px",
+            }}
+          >
+            <img
+              style={{ width: "450px" }}
+              src={cardInfo?.image && genetateImages[cardInfo.image]}
+              alt=""
+            />
+          </Container>
+          <Container maxWidth="sm">
+            <Typography
+              component="h1"
+              variant="h4"
+              color="textPrimary"
+              gutterBottom
+            >
+              ProductName: {cardInfo?.product_name}
+            </Typography>
+            <Typography variant="h5" color="textSecondary" paragraph>
+              Description: {cardInfo?.productDetails?.Description}
+            </Typography>
+            <Typography variant="h5" color="textSecondary" paragraph>
+              Inches : {cardInfo?.productDetails?.inches}
+            </Typography>
+            <Typography variant="h5" color="textSecondary" paragraph>
+              Price : {cardInfo?.productDetails?.price}
+            </Typography>
+            <div className={classes.heroButtons}>
+              <Grid container spacing={2}>
+                <Grid item>
+                  <Button variant="contained" color="primary">
+                    Add To Cart
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button variant="contained" color="secondary">
+                    Buy Now
+                  </Button>
+                </Grid>
               </Grid>
-            </Container>
-          </main>
-        </>
-      )}
-    </React.Fragment>
+            </div>
+          </Container>
+        </div>
+        <Container className={classes.cardGrid} maxWidth="md">
+          <Typography
+            component="h1"
+            variant="h4"
+            color="textPrimary"
+            gutterBottom
+          >
+            Recently Ordered Details
+          </Typography>
+          <Grid container spacing={4}>
+            {cards.map((card) => (
+              <Grid item key={card} xs={12} sm={6} md={4}>
+                <Card className={classes.card}>
+                  <CardMedia
+                    className={classes.cardMedia}
+                    image="https://source.unsplash.com/random"
+                    title="Image title"
+                  />
+                  <CardContent className={classes.cardContent}>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Heading
+                    </Typography>
+                    <Typography>
+                      This is a media card. You can use this section to describe
+                      the content.
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button size="small" color="primary">
+                      View
+                    </Button>
+                    <Button size="small" color="primary">
+                      Edit
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </main>
+    </>
   );
 }

@@ -15,15 +15,7 @@ import Divider from "@material-ui/core/Divider";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import { useDispatch } from "react-redux";
 import { genetateImages } from "../images/generateImages";
-import {
-  removeFromCartList,
-  getCartAndOrdersList,
-} from "../../services/Authsevice";
-import {
-  setCartData,
-  setOrdersData,
-  setSnackBarInfo,
-} from "../../redux/actions";
+import { RemoveItemFromCart } from "../../redux/actions";
 
 import "./Cart.css";
 import { useHistory } from "react-router-dom";
@@ -86,34 +78,16 @@ export default function Cart() {
     setAnchorEl(null);
   };
   const handleNagivateToCartPage = () => {
+    setAnchorEl(null);
     history.push({
       pathname: "/cartList",
-      state: {
-        isListView: true,
-      },
     });
     //navigate to cart page
   };
 
   const removeFromCart = (cardInfo) => {
     handleClose();
-    removeFromCartList(cardInfo)
-      .then((res) => res.json())
-      .then((item) => {
-        dispatch(
-          setSnackBarInfo({
-            isEnable: true,
-            severity: "success",
-            message: `${cardInfo.image}, Removed item from cart`,
-          })
-        );
-        getCartAndOrdersList()
-          .then((res) => res.json())
-          .then((data) => {
-            dispatch(setCartData(data.cart.cart));
-            dispatch(setOrdersData(data.cart.orders));
-          });
-      });
+    dispatch(RemoveItemFromCart(cardInfo));
   };
 
   return (
@@ -123,7 +97,11 @@ export default function Cart() {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        <StyledBadge badgeContent={cart.length} color="secondary">
+        <StyledBadge
+          badgeContent={cart.length}
+          color="secondary"
+          overlap="rectangular"
+        >
           <ShoppingCartIcon style={{ color: "white" }} />
         </StyledBadge>
       </Button>

@@ -1,16 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "./Card";
-import {
-  getProductsList,
-  getCartAndOrdersList,
-} from "../../services/Authsevice";
-import {
-  setCartData,
-  setOrdersData,
-  setProductsData,
-  setAddressData,
-} from "../../redux/actions";
+import { LoadProducts } from "../../redux/actions";
 import "./products.css";
 
 export default function Products() {
@@ -18,22 +9,8 @@ export default function Products() {
   const prod = useSelector((state) => state.products);
   const dispatch = useDispatch();
 
-  const loadProducts = () => {
-    getProductsList()
-      .then((res) => res.json())
-      .then((products) => {
-        dispatch(setProductsData(products));
-      });
-    getCartAndOrdersList()
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch(setCartData(data.cart.cart));
-        dispatch(setOrdersData(data.cart.orders));
-        dispatch(setAddressData(data.cart.address));
-      });
-  };
   useEffect(() => {
-    loadProducts();
+    dispatch(LoadProducts());
   }, []);
   useEffect(() => {
     setProducts(prod);

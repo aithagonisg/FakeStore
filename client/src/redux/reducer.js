@@ -5,6 +5,7 @@ import {
   PRODUCTS,
   SNACKBAR_INFO,
   ADDRESS_DATA,
+  PROGRESSBAR,
 } from "./ActionTypes";
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
     message: "Pass Some Message",
     duration: 3000,
   },
+  progress: false,
 };
 export const RootReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -51,6 +53,11 @@ export const RootReducer = (state = initialState, action) => {
       return {
         ...state,
         snackInfo: { ...state.snackInfo, ...action.payload },
+      };
+    case PROGRESSBAR:
+      return {
+        ...state,
+        progress: action.payload,
       };
 
     default:

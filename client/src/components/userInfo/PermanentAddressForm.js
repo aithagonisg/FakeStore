@@ -2,12 +2,7 @@ import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
-import { addAddress, getCartAndOrdersList } from "../../services/Authsevice";
-import {
-  setCartData,
-  setOrdersData,
-  setAddressData,
-} from "../../redux/actions";
+import { AddUserAddress } from "../../redux/actions";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function PermanentAddressForm() {
@@ -43,17 +38,9 @@ export default function PermanentAddressForm() {
   };
 
   const handleSavePermanentAddress = () => {
-    addAddress({ ...permanentAddressInfo, isPermanentAddress: true })
-      .then((res) => res.json())
-      .then((res) => {
-        getCartAndOrdersList()
-          .then((res) => res.json())
-          .then((data) => {
-            dispatch(setCartData(data.cart.cart));
-            dispatch(setOrdersData(data.cart.orders));
-            dispatch(setAddressData(data.cart.address));
-          });
-      });
+    dispatch(
+      AddUserAddress({ ...permanentAddressInfo, isPermanentAddress: true })
+    );
   };
   return (
     <div>

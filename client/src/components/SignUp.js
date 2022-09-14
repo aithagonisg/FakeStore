@@ -1,16 +1,15 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { AuthLoginRegister } from "../services/Authsevice";
-import { userInfo, setSnackBarInfo } from "../redux/actions";
+import { UserLoginRegister } from "../redux/actions";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,39 +33,18 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const [formData, setFormData] = useState({});
   const [isError, setIsError] = useState(false);
+  const [token, setToken] = useState("");
   const dispatch = useDispatch();
-  const history = useHistory();
-
   const classes = useStyles();
+  const userInfo = useSelector((state) => state.userInfo);
+  useEffect(() => {
+    setToken(userInfo.token);
+  }, [userInfo]);
 
   const handleSignUp = () => {
     if (Object.keys(formData).length >= 4) {
       setIsError(false);
-      AuthLoginRegister("register", formData)
-        .then((response) => response.json())
-        .then((result) => {
-          if (result.token) {
-            localStorage.setItem("token", result.token);
-            localStorage.setItem("userInfo", JSON.stringify(result));
-            dispatch(userInfo(result));
-            dispatch(
-              setSnackBarInfo({
-                isEnable: true,
-                severity: "success",
-                message: "Registration Success",
-              })
-            );
-            history.push("/");
-          } else {
-            dispatch(
-              setSnackBarInfo({
-                isEnable: true,
-                severity: "error",
-                message: result,
-              })
-            );
-          }
-        });
+      dispatch(UserLoginRegister("register", formData));
     } else {
       setIsError(true);
     }
@@ -78,7 +56,7 @@ export default function SignUp() {
 
   return (
     <>
-      {localStorage.getItem("token") ? (
+      {token ? (
         <Redirect
           to={{
             pathname: "/",

@@ -4,7 +4,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { useHistory } from "react-router-dom";
-import { userInfo } from "../../redux/actions";
+import { LogoutUser } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 
 export default function UserInfo({ info }) {
@@ -20,11 +20,9 @@ export default function UserInfo({ info }) {
     setAnchorEl(null);
   };
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userInfo");
+    dispatch(LogoutUser());
     setAnchorEl(null);
-    dispatch(userInfo({}));
-    history.push("/");
+    window.location.reload();
   };
   const navigateToAccount = () => {
     setAnchorEl(null);

@@ -10,12 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { Divider } from "@material-ui/core";
 import { genetateImages } from "../images/generateImages";
-import { addToCartList, getCartAndOrdersList } from "../../services/Authsevice";
-import {
-  setCartData,
-  setOrdersData,
-  setSnackBarInfo,
-} from "../../redux/actions";
+import { AddItemToCartList } from "../../redux/actions";
 import { currencyFormat } from "../../utils/currencyFormat";
 
 const useStyles = makeStyles({
@@ -53,23 +48,7 @@ export default function ProductCard({ cardInfo }) {
   };
 
   const addToCart = (cardInfo) => {
-    addToCartList(cardInfo)
-      .then((res) => res.json())
-      .then((item) => {
-        dispatch(
-          setSnackBarInfo({
-            isEnable: true,
-            severity: "success",
-            message: `${cardInfo.image}, added item to cart`,
-          })
-        );
-        getCartAndOrdersList()
-          .then((res) => res.json())
-          .then((data) => {
-            dispatch(setCartData(data.cart.cart));
-            dispatch(setOrdersData(data.cart.orders));
-          });
-      });
+    dispatch(AddItemToCartList(cardInfo));
   };
   return (
     <Card className={classes.root} key={product_name}>

@@ -4,3 +4,4 @@ export const ORDERS_DATA = "ORDERS_DATA";
 export const ADDRESS_DATA = "ADDRESS_DATA";
 export const PRODUCTS = "PRODUCTS";
 export const SNACKBAR_INFO = "SNACKBAR_INFO";
+export const PROGRESSBAR = "PROGRESSBAR";

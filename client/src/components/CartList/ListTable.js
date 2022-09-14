@@ -9,11 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { genetateImages } from "../images/generateImages";
 import DeleteIcon from "@material-ui/icons/Delete";
-import {
-  removeFromCartList,
-  getCartAndOrdersList,
-} from "../../services/Authsevice";
-import { setCartData, setOrdersData } from "../../redux/actions";
+import { RemoveItemFromCart } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import { Button, Typography } from "@material-ui/core";
 import { currencyFormat } from "../../utils/currencyFormat";
@@ -29,16 +25,7 @@ export default function ListTable({ rows }) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const removeFromCart = (cardInfo) => {
-    removeFromCartList(cardInfo)
-      .then((res) => res.json())
-      .then((item) =>
-        getCartAndOrdersList()
-          .then((res) => res.json())
-          .then((data) => {
-            dispatch(setCartData(data.cart.cart));
-            dispatch(setOrdersData(data.cart.orders));
-          })
-      );
+    dispatch(RemoveItemFromCart(cardInfo));
   };
   return (
     <TableContainer component={Paper}>
