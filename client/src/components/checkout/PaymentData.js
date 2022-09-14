@@ -4,22 +4,20 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-import AddressCards from "./AddressCards";
+import PaymentCard from "./PaymentCard";
 
-export default function AddressData({ addressList, setSelectedAddress }) {
+export default function CardData({ cardList, setSelectedCard }) {
   const [value, setValue] = React.useState("default");
 
   const handleChange = (event) => {
     let add_Ifno;
     setValue(event.target.value);
-    if (event.target.value === "permanent") {
-      add_Ifno = addressList.filter((item) => item.isPermanentAddress);
-    } else if (event.target.value === "current") {
-      add_Ifno = addressList.filter((item) => !item.isPermanentAddress);
+    if (event.target.value === "card") {
+      add_Ifno = cardList;
     } else {
       add_Ifno = [{}];
     }
-    setSelectedAddress(add_Ifno[0]);
+    setSelectedCard(add_Ifno[0]);
   };
 
   return (
@@ -33,12 +31,12 @@ export default function AddressData({ addressList, setSelectedAddress }) {
         style={{ display: "flex", flexDirection: "row", flexWrap: "nowrap" }}
       >
         <FormControlLabel value="default" control={<Radio />} label="Deafult" />
-        {addressList.map((item, index) => (
+        {cardList.map((item, index) => (
           <FormControlLabel
             key={index}
-            value={item.isPermanentAddress ? "permanent" : "current"}
+            value="card"
             control={<Radio />}
-            label={<AddressCards addressInfo={item} />}
+            label={<PaymentCard cardInfo={item} />}
           />
         ))}
       </RadioGroup>

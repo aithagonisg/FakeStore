@@ -5,6 +5,7 @@ import {
   removeFromCartList,
   addToCartList,
   addAddress,
+  addCardDetails,
 } from "../services/Authsevice";
 import {
   USER_INFO,
@@ -14,6 +15,7 @@ import {
   SNACKBAR_INFO,
   ADDRESS_DATA,
   PROGRESSBAR,
+  CARDDETAILS,
 } from "./ActionTypes";
 export const userInfo = (data) => ({
   type: USER_INFO,
@@ -37,6 +39,11 @@ export const setAddressData = (data) => ({
 
 export const setProductsData = (data) => ({
   type: PRODUCTS,
+  payload: data,
+});
+
+export const setCardDetails = (data) => ({
+  type: CARDDETAILS,
   payload: data,
 });
 
@@ -86,6 +93,7 @@ export const LoadCartList = (snakInfoMessage) => {
           dispatch(setCartData(data.cart.cart));
           dispatch(setOrdersData(data.cart.orders));
           dispatch(setAddressData(data.cart.address));
+          dispatch(setCardDetails(data.cart.cardDeatils));
           dispatch(progressBar(false));
           if (snakInfoMessage) {
             dispatch(
@@ -146,6 +154,16 @@ export const AddUserAddress = (addressInfo) => {
   };
 };
 
+export const AddCardDetails = (cardDetails) => {
+  return (dispatch) => {
+    dispatch(progressBar(true));
+    addCardDetails(cardDetails)
+      .then((res) => res.json())
+      .then((res) => {
+        dispatch(LoadCartList(`card details Added Successfully`));
+      });
+  };
+};
 export const LogoutUser = () => {
   return (dispatch) => {
     dispatch(progressBar(true));

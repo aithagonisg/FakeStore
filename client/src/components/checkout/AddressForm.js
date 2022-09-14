@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 export default function AddressForm() {
   const add_store = useSelector((state) => state.address);
   const [selectedAddress, setSelectedAddress] = useState({});
-  console.log(selectedAddress);
   return (
     <React.Fragment>
       <AddressData

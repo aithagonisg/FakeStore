@@ -3,19 +3,36 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
+import { useSelector, useDispatch } from "react-redux";
+import { AddCardDetails } from "../../redux/actions";
 
 export default function AddPaymentForm() {
+  const cardDetails = useSelector((state) => state.cardDetails);
   const [isPaymentDataAvailable, setIsPaymentDataAvailable] = useState(false);
+  const [paymentCardDetails, setPaymentCardDetails] = useState({});
   const [isFormDataEditable, setIsFormDataEditable] = useState(false);
-
+  const dispatch = useDispatch();
   useEffect(() => {
-    if (false) {
+    if (cardDetails?.length > 0) {
       setIsPaymentDataAvailable(true);
+      setPaymentCardDetails(cardDetails[0]);
+      setIsFormDataEditable(false);
     } else {
       setIsPaymentDataAvailable(false);
       setIsFormDataEditable(true);
     }
-  }, []);
+  }, [cardDetails]);
+
+  const handleChange = (e) => {
+    setPaymentCardDetails({
+      ...paymentCardDetails,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = () => {
+    dispatch(AddCardDetails(paymentCardDetails));
+  };
 
   const handleChangeFormEditable = () => {
     setIsFormDataEditable(true);
@@ -31,9 +48,11 @@ export default function AddPaymentForm() {
           <TextField
             required
             id="cardName"
+            name="cardName"
             label="Name on card"
             fullWidth
             autoComplete="cc-name"
+            onChange={handleChange}
             disabled={!isFormDataEditable}
           />
         </Grid>
@@ -41,9 +60,11 @@ export default function AddPaymentForm() {
           <TextField
             required
             id="cardNumber"
+            name="cardNumber"
             label="Card number"
             fullWidth
             autoComplete="cc-number"
+            onChange={handleChange}
             disabled={!isFormDataEditable}
           />
         </Grid>
@@ -51,9 +72,11 @@ export default function AddPaymentForm() {
           <TextField
             required
             id="expDate"
+            name="expDate"
             label="Expiry date"
             fullWidth
             autoComplete="cc-exp"
+            onChange={handleChange}
             disabled={!isFormDataEditable}
           />
         </Grid>
@@ -61,10 +84,12 @@ export default function AddPaymentForm() {
           <TextField
             required
             id="cvv"
+            name="cvv"
             label="CVV"
             helperText="Last three digits on signature strip"
             fullWidth
             autoComplete="cc-csc"
+            onChange={handleChange}
             disabled={!isFormDataEditable}
           />
         </Grid>
@@ -83,6 +108,7 @@ export default function AddPaymentForm() {
           <Button
             variant="contained"
             color="primary"
+            onClick={handleSubmit}
             disabled={!isFormDataEditable}
           >
             {isPaymentDataAvailable ? "Update Details" : "Add Details"}

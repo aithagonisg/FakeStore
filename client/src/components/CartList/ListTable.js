@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { Button, Typography } from "@material-ui/core";
 import { currencyFormat } from "../../utils/currencyFormat";
 import { Link } from "react-router-dom";
+import { cartTotal } from "../../utils/cartTotal";
 
 const useStyles = makeStyles({
   table: {
@@ -91,7 +92,7 @@ export default function ListTable({ rows }) {
         <div>
           <Typography variant="h5">
             &#8377;
-            {currencyFormat(125000)}
+            {currencyFormat(cartTotal(rows))}
           </Typography>
         </div>
       </div>

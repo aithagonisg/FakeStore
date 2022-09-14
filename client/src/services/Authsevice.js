@@ -59,3 +59,15 @@ export const addAddress = async (data) => {
     },
   });
 };
+
+export const addCardDetails = async (data) => {
+  const token = localStorage.getItem("token");
+  return await fetch(`${API_ORGN}/addcarddetails`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      authorization: `Bearer ${token}`,
+    },
+  });
+};

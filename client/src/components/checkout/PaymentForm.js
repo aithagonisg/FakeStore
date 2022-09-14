@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
+import CardData from "./PaymentData";
+import { useSelector } from "react-redux";
 
 export default function PaymentForm() {
+  const cardDetails = useSelector((state) => state.cardDetails);
+  const [selectedCard, setSelectedCard] = useState({});
+  console.log(selectedCard);
   return (
     <React.Fragment>
+      <CardData cardList={cardDetails} setSelectedCard={setSelectedCard} />
       <Typography variant="h6" gutterBottom>
         Payment method
       </Typography>
@@ -16,6 +22,7 @@ export default function PaymentForm() {
             id="cardName"
             label="Name on card"
             fullWidth
+            value={selectedCard["cardName"] ? selectedCard["cardName"] : ""}
             autoComplete="cc-name"
           />
         </Grid>
@@ -25,6 +32,7 @@ export default function PaymentForm() {
             id="cardNumber"
             label="Card number"
             fullWidth
+            value={selectedCard["cardNumber"] ? selectedCard["cardNumber"] : ""}
             autoComplete="cc-number"
           />
         </Grid>
@@ -34,6 +42,7 @@ export default function PaymentForm() {
             id="expDate"
             label="Expiry date"
             fullWidth
+            value={selectedCard["expDate"] ? selectedCard["expDate"] : ""}
             autoComplete="cc-exp"
           />
         </Grid>
@@ -42,6 +51,7 @@ export default function PaymentForm() {
             required
             id="cvv"
             label="CVV"
+            value={selectedCard["cvv"] ? selectedCard["cvv"] : ""}
             helperText="Last three digits on signature strip"
             fullWidth
             autoComplete="cc-csc"

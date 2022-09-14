@@ -16,6 +16,7 @@ import ListAltIcon from "@material-ui/icons/ListAlt";
 import { useDispatch } from "react-redux";
 import { genetateImages } from "../images/generateImages";
 import { RemoveItemFromCart } from "../../redux/actions";
+import { cartTotal } from "../../utils/cartTotal";
 
 import "./Cart.css";
 import { useHistory } from "react-router-dom";
@@ -60,11 +61,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Cart() {
   const cart = useSelector((state) => state.cart);
-  const totalAmount = cart.reduce(
-    (previousValue, currentValue) =>
-      previousValue + currentValue.productDetails.price,
-    0
-  );
+  const totalAmount = cartTotal(cart || []);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -135,7 +132,7 @@ export default function Cart() {
                   className="product_name"
                 />
                 <ListItemText
-                  primary={item.productDetails.price}
+                  primary={`${item.productDetails.price}`}
                   className="product_name"
                 />
                 <DeleteIcon
@@ -152,7 +149,7 @@ export default function Cart() {
               primary="Total Amount"
               style={{ paddingRight: "60px" }}
             />
-            <ListItemText primary={totalAmount} />
+            <ListItemText primary={`${totalAmount}`} />
           </ListItem>
           <Divider component="li" />
           <ListItem

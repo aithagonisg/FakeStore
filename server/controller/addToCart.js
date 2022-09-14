@@ -25,11 +25,15 @@ const addAddress = async (req, res) => {
       $set: { address: addList },
     });
   } else {
-    console.log(req.body);
     result = await user.updateOne({
       $push: { address: req.body },
     });
   }
+  res.json(result);
+};
+const addCardDetails = async (req, res) => {
+  let user = await CartList.findOne({ email: req.email });
+  const result = await user.updateOne({ $set: { cardDeatils: req.body } });
   res.json(result);
 };
 
@@ -42,4 +46,5 @@ module.exports = {
   removeItemFromCart,
   getCartAndOrdersList,
   addAddress,
+  addCardDetails,
 };
