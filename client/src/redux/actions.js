@@ -6,6 +6,7 @@ import {
   addToCartList,
   addAddress,
   addCardDetails,
+  placeOrder,
 } from "../services/Authsevice";
 import {
   USER_INFO,
@@ -16,6 +17,7 @@ import {
   ADDRESS_DATA,
   PROGRESSBAR,
   CARDDETAILS,
+  ORDERS,
 } from "./ActionTypes";
 export const userInfo = (data) => ({
   type: USER_INFO,
@@ -161,6 +163,17 @@ export const AddCardDetails = (cardDetails) => {
       .then((res) => res.json())
       .then((res) => {
         dispatch(LoadCartList(`card details Added Successfully`));
+      });
+  };
+};
+
+export const PlaceOrder = (orderInfo) => {
+  return (dispatch) => {
+    dispatch(progressBar(true));
+    placeOrder(orderInfo)
+      .then((res) => res.json())
+      .then((res) => {
+        dispatch(LoadCartList(`Order Placed Successfully`));
       });
   };
 };

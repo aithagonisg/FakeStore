@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -49,23 +48,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3];
-
 export default function ProductDescription() {
-  const history = useHistory();
-  const prod = useSelector((state) => state.products);
+  const { products, orders } = useSelector((state) => state);
   const [cardInfo, setCardInfo] = useState({});
 
   const addCardInfoToState = () => {
     const id = window.location.search.split("=")[1];
-    const cardInfo_store = prod.filter((item) => item._id === id);
+    const cardInfo_store = products.filter((item) => item._id === id);
     setCardInfo(cardInfo_store[0]);
   };
   useEffect(() => {
     addCardInfoToState();
-  }, [prod]);
+  }, [products]);
 
   const classes = useStyles();
+
+  const cards = orders.map((item) => item.cart.filter((obj) => obj)).flat();
 
   return (
     <>
@@ -136,31 +134,20 @@ export default function ProductDescription() {
             Recently Ordered Details
           </Typography>
           <Grid container spacing={4}>
-            {cards.map((card) => (
+            {cards.slice(Math.max(cards.length - 3, 1)).map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
+                    image={genetateImages[card.image]}
                     title="Image title"
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Heading
+                      {card.product_category}
                     </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe
-                      the content.
-                    </Typography>
+                    <Typography>{card.productDetails.Description}</Typography>
                   </CardContent>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      View
-                    </Button>
-                    <Button size="small" color="primary">
-                      Edit
-                    </Button>
-                  </CardActions>
                 </Card>
               </Grid>
             ))}

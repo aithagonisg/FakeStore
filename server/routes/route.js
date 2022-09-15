@@ -10,6 +10,7 @@ const {
   getCartAndOrdersList,
   addAddress,
   addCardDetails,
+  placeOrder,
 } = require("../controller/addToCart");
 
 router.get("/products", products);
@@ -25,6 +26,8 @@ router.post("/removefromcart", authenticateToken, removeItemFromCart);
 router.post("/addaddress", authenticateToken, addAddress);
 
 router.post("/addcarddetails", authenticateToken, addCardDetails);
+
+router.post("/placeOrder", authenticateToken, placeOrder);
 
 router.post("/getCartAndOrderList", authenticateToken, getCartAndOrdersList);
 

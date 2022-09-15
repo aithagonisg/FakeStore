@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Contact from "./Contact";
 import About from "./About";
 import SignIn from "../components/SignIn";
@@ -11,6 +11,9 @@ import Checkout from "../components/checkout/Checkout";
 import MyAccount from "../components/userInfo/MyAccount";
 import { LoadProducts } from "../redux/actions";
 import { useDispatch } from "react-redux";
+import SecureRoute from "./SecureRoute";
+import NonSecureRoute from "./NonSecureRoute";
+import Profile from "../components/profile/Profile";
 
 const NOMatch = () => {
   return (
@@ -28,36 +31,20 @@ function RoutesBasic() {
   }
   return (
     <Switch>
-      <Route path="/" exact>
-        <Body />
-      </Route>
-      <Route path="/contact">
-        <Contact />
-      </Route>
-      <Route path="/about">
-        <About />
-      </Route>
-      <Route path="/description">
-        <ProductDescription />
-      </Route>
-
       <Route path="/forgot">
         <>Coming soon</>
       </Route>
-      <Route path="/login">
-        {localStorage.getItem("token") ? <Redirect to="/" /> : <SignIn />}
-      </Route>
-      <Route path="/register">
-        {localStorage.getItem("token") ? <Redirect to="/" /> : <SignUp />}
-      </Route>
-      <Route path="/cartList">
-        <CartTableList />
-      </Route>
-      <Route path="/checkout">
-        <Checkout />
-      </Route>
-      <Route path="/myaccount">
-        <MyAccount />
+      <NonSecureRoute path="/about" Component={About} />
+      <NonSecureRoute path="/contact" Component={Contact} />
+      <NonSecureRoute path="/login" exact Component={SignIn} />
+      <NonSecureRoute path="/register" Component={SignUp} />
+      <SecureRoute path="/description" Component={ProductDescription} />
+      <SecureRoute path="/cartList" Component={CartTableList} />
+      <SecureRoute path="/checkout" Component={Checkout} />
+      <SecureRoute path="/myaccount" Component={MyAccount} />
+      <SecureRoute path="/profile" Component={Profile} />
+      <Route path="/" exact>
+        <Body />
       </Route>
       <Route path="*">
         <NOMatch />

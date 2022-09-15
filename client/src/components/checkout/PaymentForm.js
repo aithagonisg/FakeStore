@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import CardData from "./PaymentData";
 import { useSelector } from "react-redux";
 
-export default function PaymentForm() {
+export default function PaymentForm({ setOrderDetails, orderDetils }) {
   const cardDetails = useSelector((state) => state.cardDetails);
   const [selectedCard, setSelectedCard] = useState({});
-  console.log(selectedCard);
+
+  useEffect(() => {
+    setOrderDetails({ ...orderDetils, card: selectedCard });
+  }, [selectedCard]);
+  useEffect(() => {
+    if (!selectedCard.cadrName && orderDetils.card) {
+      setSelectedCard(orderDetils.card);
+    }
+  }, []);
+
   return (
     <React.Fragment>
       <CardData cardList={cardDetails} setSelectedCard={setSelectedCard} />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
@@ -8,20 +8,6 @@ import Grid from "@material-ui/core/Grid";
 import { useSelector } from "react-redux";
 import { currencyFormat } from "../../utils/currencyFormat";
 import { cartTotal } from "../../utils/cartTotal";
-
-const addresses = [
-  "1 Material-UI Drive",
-  "Reactville",
-  "Anytown",
-  "99999",
-  "USA",
-];
-const payments = [
-  { name: "Card type", detail: "Visa" },
-  { name: "Card holder", detail: "Mr John Smith" },
-  { name: "Card number", detail: "xxxx-xxxx-xxxx-1234" },
-  { name: "Expiry date", detail: "04/2024" },
-];
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -35,10 +21,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Review() {
+export default function Review({ setOrderDetails, orderDetils }) {
   const classes = useStyles();
 
   const products = useSelector((state) => state.cart);
+  const payments = Object.keys(orderDetils.card);
+  const addresses = Object.keys(orderDetils.address);
+  useEffect(() => {
+    setOrderDetails({ ...orderDetils, cart: products });
+  }, []);
 
   return (
     <React.Fragment>
@@ -69,8 +60,11 @@ export default function Review() {
           <Typography variant="h6" gutterBottom className={classes.title}>
             Shipping
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom>{addresses.join(", ")}</Typography>
+          <Typography gutterBottom>
+            {addresses.map((add) => (
+              <div>{orderDetils.address[add]}</div>
+            ))}
+          </Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>
@@ -78,12 +72,14 @@ export default function Review() {
           </Typography>
           <Grid container>
             {payments.map((payment) => (
-              <React.Fragment key={payment.name}>
+              <React.Fragment key={payment}>
                 <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.name}</Typography>
+                  <Typography gutterBottom>{payment}</Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.detail}</Typography>
+                  <Typography gutterBottom>
+                    {orderDetils.card[payment]}
+                  </Typography>
                 </Grid>
               </React.Fragment>
             ))}

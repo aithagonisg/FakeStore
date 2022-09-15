@@ -51,6 +51,11 @@ export default function AddPaymentForm() {
             name="cardName"
             label="Name on card"
             fullWidth
+            value={
+              paymentCardDetails["cardName"]
+                ? paymentCardDetails["cardName"]
+                : ""
+            }
             autoComplete="cc-name"
             onChange={handleChange}
             disabled={!isFormDataEditable}
@@ -63,6 +68,11 @@ export default function AddPaymentForm() {
             name="cardNumber"
             label="Card number"
             fullWidth
+            value={
+              paymentCardDetails["cardNumber"]
+                ? paymentCardDetails["cardNumber"]
+                : ""
+            }
             autoComplete="cc-number"
             onChange={handleChange}
             disabled={!isFormDataEditable}
@@ -75,6 +85,9 @@ export default function AddPaymentForm() {
             name="expDate"
             label="Expiry date"
             fullWidth
+            value={
+              paymentCardDetails["expDate"] ? paymentCardDetails["expDate"] : ""
+            }
             autoComplete="cc-exp"
             onChange={handleChange}
             disabled={!isFormDataEditable}
@@ -85,6 +98,7 @@ export default function AddPaymentForm() {
             required
             id="cvv"
             name="cvv"
+            value={paymentCardDetails["cvv"] ? paymentCardDetails["cvv"] : ""}
             label="CVV"
             helperText="Last three digits on signature strip"
             fullWidth

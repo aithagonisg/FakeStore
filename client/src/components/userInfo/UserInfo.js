@@ -16,9 +16,6 @@ export default function UserInfo({ info }) {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   const handleLogout = () => {
     dispatch(LogoutUser());
     setAnchorEl(null);
@@ -27,6 +24,11 @@ export default function UserInfo({ info }) {
   const navigateToAccount = () => {
     setAnchorEl(null);
     history.push("/myaccount");
+  };
+
+  const navigateToProfile = () => {
+    setAnchorEl(null);
+    history.push("/profile");
   };
   return (
     <div style={{ display: "flex" }}>
@@ -46,10 +48,9 @@ export default function UserInfo({ info }) {
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
-        onClose={handleClose}
         style={{ top: "32px" }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={navigateToProfile}>Profile</MenuItem>
         <MenuItem onClick={navigateToAccount}>My account</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>

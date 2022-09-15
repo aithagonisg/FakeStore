@@ -37,6 +37,12 @@ const addCardDetails = async (req, res) => {
   res.json(result);
 };
 
+const placeOrder = async (req, res) => {
+  let user = await CartList.findOne({ email: req.email });
+  const result = await user.updateOne({ $push: { orders: req.body } });
+  res.json(result);
+};
+
 const getCartAndOrdersList = async (req, res, next) => {
   let user = await CartList.findOne({ email: req.email });
   res.json({ cart: user });
@@ -47,4 +53,5 @@ module.exports = {
   getCartAndOrdersList,
   addAddress,
   addCardDetails,
+  placeOrder,
 };

@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import AddressData from "./AddressData";
 import { useSelector } from "react-redux";
 
-export default function AddressForm() {
+export default function AddressForm({ setOrderDetails, orderDetils }) {
   const add_store = useSelector((state) => state.address);
   const [selectedAddress, setSelectedAddress] = useState({});
+
+  useEffect(() => {
+    setOrderDetails({ ...orderDetils, address: selectedAddress });
+  }, [selectedAddress]);
+
+  useEffect(() => {
+    if (!selectedAddress.address1 && orderDetils.address) {
+      setSelectedAddress(orderDetils.address);
+    }
+  }, []);
+
   return (
     <React.Fragment>
       <AddressData
