@@ -10,7 +10,7 @@ import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
 import { PlaceOrder } from "../../redux/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -84,6 +84,7 @@ export default function Checkout() {
   const [orderDetils, setOrderDetails] = useState({});
 
   const dispatch = useDispatch();
+  const order_Info = useSelector((state) => state.orderInfo);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -116,9 +117,10 @@ export default function Checkout() {
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
+                  Your order number is {order_Info.orderId}. We have emailed
+                  your order confirmation, and will send you an update when your
+                  order has shipped. Expected Delivery Date is
+                  {order_Info.deliveryDate}
                 </Typography>
               </React.Fragment>
             ) : (

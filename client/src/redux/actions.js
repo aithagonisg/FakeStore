@@ -7,6 +7,7 @@ import {
   addAddress,
   addCardDetails,
   placeOrder,
+  updateUserInfo,
 } from "../services/Authsevice";
 import {
   USER_INFO,
@@ -17,7 +18,8 @@ import {
   ADDRESS_DATA,
   PROGRESSBAR,
   CARDDETAILS,
-  ORDERS,
+  ORDERINFO,
+  UPDATEINFO,
 } from "./ActionTypes";
 export const userInfo = (data) => ({
   type: USER_INFO,
@@ -46,6 +48,16 @@ export const setProductsData = (data) => ({
 
 export const setCardDetails = (data) => ({
   type: CARDDETAILS,
+  payload: data,
+});
+
+export const setOrderInfo = (data) => ({
+  type: ORDERINFO,
+  payload: data,
+});
+
+export const setUserInfo = (data) => ({
+  type: UPDATEINFO,
   payload: data,
 });
 
@@ -92,6 +104,9 @@ export const LoadCartList = (snakInfoMessage) => {
       getCartAndOrdersList()
         .then((res) => res.json())
         .then((data) => {
+          if (localStorage.getItem("userInfo")) {
+            dispatch(userInfo(JSON.parse(localStorage.getItem("userInfo"))));
+          }
           dispatch(setCartData(data.cart.cart));
           dispatch(setOrdersData(data.cart.orders));
           dispatch(setAddressData(data.cart.address));
@@ -173,6 +188,7 @@ export const PlaceOrder = (orderInfo) => {
     placeOrder(orderInfo)
       .then((res) => res.json())
       .then((res) => {
+        dispatch(setOrderInfo(res));
         dispatch(LoadCartList(`Order Placed Successfully`));
       });
   };
@@ -186,5 +202,15 @@ export const LogoutUser = () => {
     setTimeout(() => {
       dispatch(progressBar(false));
     }, 2000);
+  };
+};
+
+export const UpdatedUserInfo = (data) => {
+  return (dispatch) => {
+    updateUserInfo(data)
+      .then((res) => res.json())
+      .then((result) => {
+        dispatch(setUserInfo(result));
+      });
   };
 };

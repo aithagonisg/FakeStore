@@ -18,6 +18,36 @@ const useStyles = makeStyles({
     width: 378,
     margin: 10,
     height: 349,
+    position: "relative",
+  },
+  ribbon: {
+    backgroundColor: "skyblue",
+    position: "absolute",
+    color: "white",
+    width: 150,
+    zIndex: 3,
+    textAlign: "center",
+    textTransform: "uppercase",
+    padding: 5,
+    font: "Lato",
+    "&::before": {
+      position: "absolute",
+      zIndex: -1,
+      content: "",
+      display: "block",
+      border: "5px solid #2980b9",
+    },
+    "&::after": {
+      position: "absolute",
+      zIndex: -1,
+      content: "",
+      display: "block",
+      border: "5px solid #2980b9",
+    },
+    transform: "rotate(-45deg)",
+    bottom: 10,
+    right: -44,
+    marginLeft: -40,
   },
   media: {
     height: 175,
@@ -51,50 +81,53 @@ export default function ProductCard({ cardInfo }) {
     dispatch(AddItemToCartList(cardInfo));
   };
   return (
-    <Card className={classes.root} key={product_name}>
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={genetateImages[image]}
-          title="Contemplative Reptile"
-          onClick={() => handleChangePage(cardInfo)}
-        />
-        <Divider variant="middle" className={classes.divide} />
-        <CardContent>
-          <div className={classes.content}>
-            <div>
-              <Typography variant="h4" component="h2">
-                {product_category}
-              </Typography>
+    <>
+      <Card className={classes.root} key={product_name}>
+        {productDetails.isNewStock && <div className={classes.ribbon}>New</div>}
+        <CardActionArea>
+          <CardMedia
+            className={classes.media}
+            image={genetateImages[image]}
+            title="Contemplative Reptile"
+            onClick={() => handleChangePage(cardInfo)}
+          />
+          <Divider variant="middle" className={classes.divide} />
+          <CardContent>
+            <div className={classes.content}>
+              <div>
+                <Typography variant="h4" component="h2">
+                  {product_category}
+                </Typography>
+              </div>
+              <div>
+                <Typography variant="h5" component="h4">
+                  {product_name}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="textSecondary"
+                  component="p"
+                  className="subCategory"
+                >
+                  {productDetails.Description}
+                </Typography>
+              </div>
             </div>
-            <div>
-              <Typography variant="h5" component="h4">
-                {product_name}
-              </Typography>
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                component="p"
-                className="subCategory"
-              >
-                {productDetails.Description}
-              </Typography>
-            </div>
-          </div>
-          <Typography variant="h5" component="h4">
-            &#8377;
-            {currencyFormat(productDetails.price)}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <Button
-        variant="contained"
-        color="primary"
-        style={{ marginLeft: "10px", borderTop: "1px solid black" }}
-        onClick={() => addToCart(cardInfo)}
-      >
-        Add To Cart
-      </Button>
-    </Card>
+            <Typography variant="h5" component="h4">
+              &#8377;
+              {currencyFormat(productDetails.price)}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ marginLeft: "10px", borderTop: "1px solid black" }}
+          onClick={() => addToCart(cardInfo)}
+        >
+          Add To Cart
+        </Button>
+      </Card>
+    </>
   );
 }

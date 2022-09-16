@@ -6,3 +6,5 @@ export const PRODUCTS = "PRODUCTS";
 export const SNACKBAR_INFO = "SNACKBAR_INFO";
 export const PROGRESSBAR = "PROGRESSBAR";
 export const CARDDETAILS = "CARDDETAILS";
+export const ORDERINFO = "ORDERINFO";
+export const UPDATEINFO = "UPDATEINFO";

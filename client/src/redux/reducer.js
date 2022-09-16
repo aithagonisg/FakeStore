@@ -7,6 +7,7 @@ import {
   ADDRESS_DATA,
   PROGRESSBAR,
   CARDDETAILS,
+  ORDERINFO,
 } from "./ActionTypes";
 
 const initialState = {
@@ -21,6 +22,7 @@ const initialState = {
     message: "Pass Some Message",
     duration: 3000,
   },
+  orderInfo: {},
   cardDetails: [],
   progress: false,
 };
@@ -55,6 +57,11 @@ export const RootReducer = (state = initialState, action) => {
       return {
         ...state,
         cardDetails: action.payload,
+      };
+    case ORDERINFO:
+      return {
+        ...state,
+        orderInfo: action.payload,
       };
     case SNACKBAR_INFO:
       return {

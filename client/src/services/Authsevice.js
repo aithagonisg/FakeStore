@@ -83,3 +83,27 @@ export const placeOrder = async (data) => {
     },
   });
 };
+
+export const updateUserInfo = async (data) => {
+  const token = localStorage.getItem("token");
+  return await fetch(`${API_ORGN}/updateuserinfo`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const updatePassword = async (data) => {
+  const token = localStorage.getItem("token");
+  return await fetch(`${API_ORGN}/updatepassword`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      authorization: `Bearer ${token}`,
+    },
+  });
+};

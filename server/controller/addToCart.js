@@ -1,4 +1,5 @@
 const CartList = require("../models/cartList");
+const uuid = require("uuid");
 
 const addToCart = async (req, res, next) => {
   let user = await CartList.findOne({ email: req.email });
@@ -38,9 +39,20 @@ const addCardDetails = async (req, res) => {
 };
 
 const placeOrder = async (req, res) => {
+  const orderId = uuid.v1();
+  var future = new Date();
+  future.setDate(future.getDate() + 3);
+  const body = {
+    orderId: orderId,
+    deliveryDate: future,
+    ...req.body,
+  };
   let user = await CartList.findOne({ email: req.email });
-  const result = await user.updateOne({ $push: { orders: req.body } });
-  res.json(result);
+  const result = await user.updateOne({
+    $push: { orders: body },
+    $set: { cart: [] },
+  });
+  res.json({ orderId: orderId, deliveryDate: future });
 };
 
 const getCartAndOrdersList = async (req, res, next) => {
