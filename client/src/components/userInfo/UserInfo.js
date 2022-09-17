@@ -6,6 +6,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { useHistory } from "react-router-dom";
 import { LogoutUser } from "../../redux/actions";
 import { useDispatch } from "react-redux";
+import { Tooltip } from "@material-ui/core";
 
 export default function UserInfo({ info }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -19,7 +20,6 @@ export default function UserInfo({ info }) {
   const handleLogout = () => {
     dispatch(LogoutUser());
     setAnchorEl(null);
-    window.location.reload();
   };
   const navigateToAccount = () => {
     setAnchorEl(null);
@@ -32,9 +32,14 @@ export default function UserInfo({ info }) {
   };
   return (
     <div style={{ display: "flex" }}>
-      <div style={{ color: "white", textDecoration: "none" }}>
-        {info?.firstName + " " + info?.lastName}
-      </div>
+      <Tooltip title={info?.firstName + " " + info?.lastName} aria-label="add">
+        <div
+          className="subCategory"
+          style={{ color: "white", textDecoration: "none", width: "120px" }}
+        >
+          {info?.firstName + " " + info?.lastName}
+        </div>
+      </Tooltip>
       <Button
         aria-controls="simple-menu"
         aria-haspopup="true"

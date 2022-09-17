@@ -5,6 +5,8 @@ import { Button } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { useDispatch } from "react-redux";
+import { ChangeUserPassword } from "../../redux/actions";
 
 export default function Changepassword() {
   const [passwordData, setPasswordData] = useState({});
@@ -13,15 +15,16 @@ export default function Changepassword() {
 
   const [visiblePassword, setVisiblePassword] = useState(false);
 
+  const dispatch = useDispatch();
+
   const handleChange = (e) => {
     setPasswordData({ ...passwordData, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
-    console.log();
     if (
       Object.keys(passwordData).length > 2 &&
-      passwordData?.newpassword === passwordData?.confirmpassword
+      passwordData?.password === passwordData?.confirmpassword
     ) {
       setIsBtnDisable(true);
     } else {
@@ -31,6 +34,7 @@ export default function Changepassword() {
 
   const Updatepassword = () => {
     //make api call if only passwords are correct
+    dispatch(ChangeUserPassword(passwordData));
   };
   return (
     <div>
@@ -50,7 +54,7 @@ export default function Changepassword() {
           <TextField
             required
             id="newpassword"
-            name="newpassword"
+            name="password"
             fullWidth
             label="new password"
             type={visiblePassword ? "text" : "password"}

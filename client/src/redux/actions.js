@@ -8,6 +8,7 @@ import {
   addCardDetails,
   placeOrder,
   updateUserInfo,
+  updatePassword,
 } from "../services/Authsevice";
 import {
   USER_INFO,
@@ -19,7 +20,6 @@ import {
   PROGRESSBAR,
   CARDDETAILS,
   ORDERINFO,
-  UPDATEINFO,
 } from "./ActionTypes";
 export const userInfo = (data) => ({
   type: USER_INFO,
@@ -56,11 +56,6 @@ export const setOrderInfo = (data) => ({
   payload: data,
 });
 
-export const setUserInfo = (data) => ({
-  type: UPDATEINFO,
-  payload: data,
-});
-
 export const setSnackBarInfo = (data) => ({
   type: SNACKBAR_INFO,
   payload: data,
@@ -92,6 +87,7 @@ export const UserLoginRegister = (url, data) => {
                 message: result,
               })
             );
+            dispatch(progressBar(false));
           }
         });
     }, 1000);
@@ -202,6 +198,7 @@ export const LogoutUser = () => {
     setTimeout(() => {
       dispatch(progressBar(false));
     }, 2000);
+    window.location.reload();
   };
 };
 
@@ -210,7 +207,28 @@ export const UpdatedUserInfo = (data) => {
     updateUserInfo(data)
       .then((res) => res.json())
       .then((result) => {
-        dispatch(setUserInfo(result));
+        localStorage.setItem("userInfo", JSON.stringify(result));
+        dispatch(userInfo(result));
+      });
+  };
+};
+
+export const ChangeUserPassword = (data) => {
+  return (dispatch) => {
+    updatePassword(data)
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.acknowledged) {
+          dispatch(LogoutUser());
+        } else {
+          dispatch(
+            setSnackBarInfo({
+              isEnable: true,
+              severity: "error",
+              message: res,
+            })
+          );
+        }
       });
   };
 };

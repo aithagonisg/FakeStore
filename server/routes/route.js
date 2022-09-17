@@ -13,6 +13,11 @@ const {
   placeOrder,
 } = require("../controller/addToCart");
 
+const {
+  changePassword,
+  updateUserInfo,
+} = require("../controller/updateUserInfo");
+
 router.get("/products", products);
 
 router.post("/register", register);
@@ -28,6 +33,10 @@ router.post("/addaddress", authenticateToken, addAddress);
 router.post("/addcarddetails", authenticateToken, addCardDetails);
 
 router.post("/placeOrder", authenticateToken, placeOrder);
+
+router.post("/changepassword", authenticateToken, changePassword);
+
+router.post("/updateuserinfo", authenticateToken, updateUserInfo);
 
 router.post("/getCartAndOrderList", authenticateToken, getCartAndOrdersList);
 

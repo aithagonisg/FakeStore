@@ -98,7 +98,7 @@ export const updateUserInfo = async (data) => {
 
 export const updatePassword = async (data) => {
   const token = localStorage.getItem("token");
-  return await fetch(`${API_ORGN}/updatepassword`, {
+  return await fetch(`${API_ORGN}/changepassword`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {

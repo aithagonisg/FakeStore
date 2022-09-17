@@ -6,11 +6,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { UpdatedUserInfo } from "../../redux/actions";
 
 export default function UserInfo() {
-  const userInfo = useSelector((state) => state.userInfo);
+  const userData = useSelector((state) => state.userInfo);
   const dispatch = useDispatch();
 
+  const [userInfo, setUserInfo] = useState({});
+
+  useEffect(() => {
+    setUserInfo(userData);
+  }, [userData]);
+
+  const handleChange = (e) => {
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+  };
+
   const updatedUserInfo = () => {
-    // dispatch(UpdatedUserInfo({ firstName: "satheesh", lastName: "Aithagoni" }));
+    dispatch(UpdatedUserInfo(userInfo));
   };
   return (
     <div>
@@ -34,6 +44,7 @@ export default function UserInfo() {
             value={userInfo.firstName}
             fullWidth
             label={userInfo.firstName ? "" : "First Name"}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={12}>
@@ -44,6 +55,7 @@ export default function UserInfo() {
             value={userInfo.lastName}
             fullWidth
             label={userInfo.lastName ? "" : "Last Name"}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
