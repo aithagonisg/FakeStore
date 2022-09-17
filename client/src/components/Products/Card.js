@@ -63,7 +63,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ProductCard({ cardInfo }) {
+export default function ProductCard({ cardInfo, className, media }) {
   const { image, productDetails, product_category, product_name } = cardInfo;
 
   const classes = useStyles();
@@ -82,14 +82,14 @@ export default function ProductCard({ cardInfo }) {
   };
   return (
     <>
-      <Card className={classes.root} key={product_name}>
+      <Card className={`${classes.root} ${className}`} key={product_name}>
         {productDetails.isNewStock && <div className={classes.ribbon}>New</div>}
         <CardActionArea>
           <CardMedia
-            className={classes.media}
+            className={`${classes.media} ${media}`}
             image={genetateImages[image]}
             title="Contemplative Reptile"
-            onClick={() => handleChangePage(cardInfo)}
+            onClick={!media ? () => handleChangePage(cardInfo) : () => {}}
           />
           <Divider variant="middle" className={classes.divide} />
           <CardContent>

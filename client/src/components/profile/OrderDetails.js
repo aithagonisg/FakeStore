@@ -12,6 +12,15 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
   },
+  className: {
+    width: 250,
+    margin: 10,
+    height: 200,
+    position: "relative",
+  },
+  media: {
+    height: 90,
+  },
   heading: {
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
@@ -20,11 +29,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SummeryDeatils = ({ cart }) => {
+  const classes = useStyles();
   return (
     <span style={{ display: "flex", flexWrap: "wrap" }}>
       {cart.map((item) => (
         <AccordionDetails>
-          <ProductCard cardInfo={item} />
+          <ProductCard
+            cardInfo={item}
+            className={classes.className}
+            media={classes.media}
+          />
         </AccordionDetails>
       ))}
     </span>

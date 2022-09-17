@@ -80,6 +80,7 @@ export const UserLoginRegister = (url, data) => {
             dispatch(userInfo(result));
             dispatch(progressBar(false));
           } else {
+            dispatch(progressBar(false));
             dispatch(
               setSnackBarInfo({
                 isEnable: true,
@@ -87,7 +88,6 @@ export const UserLoginRegister = (url, data) => {
                 message: result,
               })
             );
-            dispatch(progressBar(false));
           }
         });
     }, 1000);
